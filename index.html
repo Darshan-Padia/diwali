@@ -328,7 +328,7 @@
                 "
             >
                 Happy<br /><br /><br /><br />
-                <br />Diwali 
+                <br />Diwali
             </h1>
             <h3
                 class="bycp"
@@ -347,7 +347,6 @@
                 "
             >
                 <br />
-                
 
                 - CP Club
             </h3>
@@ -367,7 +366,9 @@
                     font-size: 35px;
                 "
             >
-                Click on the goals <br> <br> to achieve them :)
+                Click on the goals <br />
+                <br />
+                to achieve them :)
             </h6>
 
             <br /><br />
@@ -471,18 +472,16 @@
 
                             // Set positions for mobile devices
                             if (window.innerWidth <= 768) {
-
-                                if(i<3){
-                                const topPercentage = 40 + i * 15;
-                                const leftPercentage = 5; // First three on the left, next three on the right
-                                additionalLabel.style.left = `${leftPercentage}%`;
-                                additionalLabel.style.top = `${topPercentage}%`;
-                                }else{
+                                if (i < 3) {
+                                    const topPercentage = 40 + i * 15;
+                                    const leftPercentage = 5; // First three on the left, next three on the right
+                                    additionalLabel.style.left = `${leftPercentage}%`;
+                                    additionalLabel.style.top = `${topPercentage}%`;
+                                } else {
                                     const topPercentage = 40 + (i - 3) * 15;
                                     const leftPercentage = 55; // First three on the left, next three on the right
                                     additionalLabel.style.left = `${leftPercentage}%`;
                                     additionalLabel.style.top = `${topPercentage}%`;
-
                                 }
 
                                 // const topPercentage = 40 + i * 15;
@@ -521,6 +520,9 @@
                                             "opacity 0.5s";
                                         additionalLabel.style.opacity = 0;
                                     }, 700);
+                                    setTimeout(function () {
+                                        additionalLabel.style.display = "none";
+                                    }, 1200); // 700ms (initial timeout) + 500ms (opacity transition)
                                 }
                             );
 
