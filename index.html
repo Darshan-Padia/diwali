@@ -268,7 +268,11 @@
             </center>
             <h1
                 class="red-text ak"
-                style="text-align: center; font-weight: normal; font-size: 50px"
+                style="
+                    text-align: center;
+                    font-weight: normal;
+                    font-size: 100px;
+                "
             >
                 Happy Diwali
             </h1>
@@ -277,7 +281,7 @@
                     position: absolute;
                     left: 0;
                     right: 0;
-                    top: 7%;
+                    top: 15%;
                     color: #ffe45e;
                     text-align: center;
                     font-size: 7rem;
@@ -285,7 +289,7 @@
                     text-shadow: #ffe45e 0 0 30px, #e5c654 1px 0 3px;
                     text-align: center;
                     font-weight: normal;
-                    font-size: 35px;
+                    font-size: 50px;
                 "
             >
                 By CP Club
@@ -295,7 +299,7 @@
                     position: absolute;
                     left: 0;
                     right: 0;
-                    top: 7%;
+                    top: 20%;
                     color: #ffe45e;
                     text-align: center;
                     font-size: 7rem;
@@ -354,7 +358,6 @@
                     })();
 
                     self.init = function () {
-
                         let dt = "";
                         // self.label = document.createElement("div");
                         // self.label.classList.add("random-label");
@@ -383,53 +386,75 @@
 
                         // Append additional labels
                         // creating a list of  short programming quotes for storing in label
-                        lst = [
-                            '“Any fool can write code that a computer can understand. Good programmers write code that humans can understand.” – Martin Fowler',
-                            '“First, solve the problem. Then, write the code.” – John Johnson',
-                            '“Experience is the name everyone gives to their mistakes.” – Oscar Wilde',
-                            '“In order to be irreplaceable, one must always be different” – Coco Chanel',
-                            '“Java is to JavaScript what car is to Carpet.” – Chris Heilmann',
-                            '“Knowledge is power.” – Francis Bacon',
-                            '“Sometimes it pays to stay in bed on Monday, rather than spending the rest of the week debugging Monday’s code.” – Dan Salomon',
-                        ]
+                        //  an api that returns coding suggestions or quotes less than 10 word lenght
 
+                        lst = [
+                            "Celebrate Bug-Free Bliss",
+                            "Share Joyful Functions",
+                            "Fire up Features",
+                            "Spark Creativity",
+                            "Debug Diyas",
+                            "Illuminate Codebase",
+                            "Codefire Celebrations",
+                            "Debugging Delights",
+                            "Algorithmic Lights",
+                            "Wishing Zero Bugs!",
+                            "joyful Syntax",
+                        ];
+
+                        lst.sort(() => Math.random() - 0.5);
+
+                        const selectedGoals = lst.slice(0, 6);
 
                         for (let i = 0; i < 6; i++) {
                             const additionalLabel =
                                 document.createElement("div");
                             additionalLabel.classList.add("random-label");
 
-                            const additionalPosition = getRandomPosition();
+                            let additionalPosition;
+                            do {
+                                additionalPosition = getRandomPosition();
+                            } while (isOverlapping(additionalPosition));
+
                             additionalLabel.style.position = "absolute";
                             additionalLabel.style.zIndex = 1000000000000;
                             additionalLabel.style.top = additionalPosition.top;
                             additionalLabel.style.left =
                                 additionalPosition.left;
-                            additionalLabel.textContent = `${lst[i]}`;
+                            additionalLabel.textContent = `${selectedGoals[i]}`;
 
                             additionalLabel.addEventListener(
                                 "click",
                                 function () {
-
-                                    // time 1000 ms
                                     setTimeout(function () {
                                         additionalLabel.style.transition =
                                             "opacity 0.5s";
                                         additionalLabel.style.opacity = 0;
                                     }, 700);
-
-                                    // setTimeout(function () {
-                                    //     additionalLabel.remove();
-                                    //     // self.initiateFireworks(
-                                    //     //     additionalPosition.left,
-                                    //     //     additionalPosition.top
-                                    //     // );
-                                    // }, 2500);
                                 }
                             );
 
-                            // Append the additional label
-                            $(document.body).append(additionalLabel);
+                            document.body.appendChild(additionalLabel);
+                        }
+
+                        function isOverlapping(newLabelPosition) {
+                            const existingLabels =
+                                document.querySelectorAll(".random-label");
+
+                            for (const label of existingLabels) {
+                                const rect1 = newLabelPosition;
+                                const rect2 = label.getBoundingClientRect();
+
+                                if (
+                                    rect1.left < rect2.right &&
+                                    rect1.right > rect2.left &&
+                                    rect1.top < rect2.bottom &&
+                                    rect1.bottom > rect2.top
+                                ) {
+                                    return true;
+                                }
+                            }
+                            return false;
                         }
 
                         self.canvas = document.createElement("canvas");
@@ -872,9 +897,58 @@
                     function getRandomPosition() {
                         const windowHeight = window.innerHeight;
                         const windowWidth = window.innerWidth;
-                        const top = Math.random() * (windowHeight - 30);
-                        const left = Math.random() * (windowWidth - 100);
-                        return { top: top + "px", left: left + "px" };
+                        const minHeight = 400;
+
+                        let labelPosition;
+
+                        do {
+                            const top = Math.max(
+                                minHeight,
+                                Math.random() * (windowHeight - 30)
+                            );
+                            const left = Math.random() * (windowWidth - 100);
+
+                            labelPosition = { top, left };
+                        } while (isOverlapping(labelPosition));
+
+                        return {
+                            top: labelPosition.top + "px",
+                            left: labelPosition.left + "px",
+                        };
+                    }
+
+                    function isOverlapping(newLabelPosition) {
+                        // Check if the new label overlaps with any existing labels
+                        const existingLabels =
+                            document.querySelectorAll(".your-label-class"); // Replace with the actual class you're using for your labels
+
+                        for (const label of existingLabels) {
+                            const rect1 = newLabelPosition;
+                            const rect2 = label.getBoundingClientRect();
+
+                            if (
+                                rect1.left < rect2.right &&
+                                rect1.right > rect2.left &&
+                                rect1.top < rect2.bottom &&
+                                rect1.bottom > rect2.top
+                            ) {
+                                // Overlapping
+                                return true;
+                            }
+                        }
+
+                        // Not overlapping
+                        return false;
+                    }
+
+                    function createRandomLabel() {
+                        const label = document.createElement("div");
+                        label.className = "your-label-class"; // Replace with the actual class you want to use
+                        const position = getRandomPosition();
+                        label.style.top = position.top;
+                        label.style.left = position.left;
+                        // Additional styling or content setup for your label
+                        document.body.appendChild(label);
                     }
 
                     function addRandomLabels() {
