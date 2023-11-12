@@ -17,6 +17,25 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-compat/3.0.0-alpha1/jquery.min.js"></script>
 
         <style>
+            @media (max-width: 720px) {
+                #dialogBox {
+                    height: 100%;
+                    width: 100%;
+                    padding: 0;
+                    border: 0;
+                }
+
+                #circle {
+                    bottom: 0;
+                    left: -30px;
+                }
+
+                img {
+                    position: fixed;
+                    top: 4px;
+                    left: 4px;
+                }
+            }
             .red-text {
                 font-family: Pacifico;
                 color: red;
@@ -25,11 +44,14 @@
 
             html,
             body {
-                height: 100%;
+                height: 100vh;
                 margin: 0;
                 padding: 0;
-                background-image: image("");
-                background-color: black;
+                background-image: url("https://img.freepik.com/free-vector/hanging-diwali-diya-dark-background_1017-15361.jpg?w=826&t=st=1699802907~exp=1699803507~hmac=0d5cdb7df7d6403cc58abbe807569a7f4ae781a942b09dd0127df8e2335d9506");
+                background-color: rgb(0, 0, 0);
+                background-repeat: no-repeat;
+                /* cover */
+                background-size: cover;
             }
 
             ul,
@@ -242,6 +264,34 @@
                 user-select: none;
                 -webkit-user-select: none;
             }
+            @media (max-width: 767px) {
+                /* Styles for mobile devices */
+                .red-text {
+                    font-size: 50px;
+                    text-align: center; /* Center text for mobile devices */
+                    margin-left: 10%; /* Adjust the left margin */
+                    margin-right: 10%; /* Adjust the right margin */
+                }
+                .bycp {
+                    text-align: center; /* Center text for mobile devices */
+                    margin-left: 10%; 
+                     margin-right: 10%; 
+                }
+            }
+
+            @media (min-width: 768px) {
+                /* Styles for laptops and larger screens */
+                .red-text {
+                    left: -50%;
+                    font-size: 100px;
+                    margin-top: 5%;
+                }
+                .bycp {
+                    left: -50%;
+                    font-size: 50px;
+                    margin-top: 0%;
+                }
+            }
         </style>
     </head>
     <body onload="onLoad();">
@@ -272,16 +322,17 @@
                     text-align: center;
                     font-weight: normal;
                     font-size: 100px;
+                    margin-top: 5%;
                 "
             >
-                Happy Diwali
+                Happpy<br /><br /><br /><br /> <br />Diwali
             </h1>
             <h3
+                class="bycp"
                 style="
                     position: absolute;
-                    left: 0;
                     right: 0;
-                    top: 15%;
+                    top: 25%;
                     color: #ffe45e;
                     text-align: center;
                     font-size: 7rem;
@@ -292,14 +343,14 @@
                     font-size: 50px;
                 "
             >
-                By CP Club
+               <br> - CP Club
             </h3>
             <h6
                 style="
                     position: absolute;
                     left: 0;
                     right: 0;
-                    top: 20%;
+                    top: 80%; /* Adjust the top value to avoid overlapping */
                     color: #ffe45e;
                     text-align: center;
                     font-size: 7rem;
@@ -312,6 +363,7 @@
             >
                 Click on the goals to achieve them :)
             </h6>
+
             <br /><br />
         </div>
         <footer class="footer footer-inverse" style="margin-bottom: 0">
@@ -411,16 +463,34 @@
                                 document.createElement("div");
                             additionalLabel.classList.add("random-label");
 
-                            let additionalPosition;
-                            do {
-                                additionalPosition = getRandomPosition();
-                            } while (isOverlapping(additionalPosition));
+                            // Set positions for mobile devices
+                            if (window.innerWidth <= 768) {
+                                const topPercentage = 40 + i * 15;
+                                const leftPercentage = 5;
+                                additionalLabel.style.left = `${leftPercentage}%`;
+                                additionalLabel.style.top = `${topPercentage}%`;
+                            }
+                            // Set random positions for laptops
+                            else {
+                                // Set positions for the left side
+                                if (i < 3) {
+                                    const topPercentage = 40 + i * 15;
+                                    const leftPercentage = Math.random() * 20; // Random left position
+                                    additionalLabel.style.left = `${leftPercentage}%`;
+                                    additionalLabel.style.top = `${topPercentage}%`;
+                                }
+                                // Set positions for the right side
+                                else {
+                                    const topPercentage = 40 + (i - 3) * 15;
+                                    const leftPercentage =
+                                        Math.random() * 20 + 60; // Random left position
+                                    additionalLabel.style.left = `${leftPercentage}%`;
+                                    additionalLabel.style.top = `${topPercentage}%`;
+                                }
+                            }
 
                             additionalLabel.style.position = "absolute";
                             additionalLabel.style.zIndex = 1000000000000;
-                            additionalLabel.style.top = additionalPosition.top;
-                            additionalLabel.style.left =
-                                additionalPosition.left;
                             additionalLabel.textContent = `${selectedGoals[i]}`;
 
                             additionalLabel.addEventListener(
