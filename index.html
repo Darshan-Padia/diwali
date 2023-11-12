@@ -469,7 +469,7 @@
                             // Set positions for mobile devices
                             if (window.innerWidth <= 768) {
                                 const topPercentage = 40 + i * 15;
-                                const leftPercentage = 5;
+                                const leftPercentage = i < 3 ? 5 : 90; // First three on the left, next three on the right
                                 additionalLabel.style.left = `${leftPercentage}%`;
                                 additionalLabel.style.top = `${topPercentage}%`;
                             }
